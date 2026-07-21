@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小红书海外营销线索平台 - 原型</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#7C3AED',
+        'primary-light': '#A78BFA',
+        'primary-dark': '#6D28D9',
+        cta: '#F97316',
+        'cta-hover': '#EA580C',
+        bg: '#FAF5FF',
+        'text-primary': '#4C1D95',
+        'text-secondary': '#7C3AED',
+        'border': '#E9D5FF',
+        success: '#10B981',
+        warning: '#F59E0B',
+        danger: '#EF4444',
+        'gray-50': '#FAFAFA',
+        'gray-100': '#F4F4F5',
+        'gray-200': '#E4E4E7',
+        'gray-300': '#D4D4D8',
+        'gray-400': '#A1A1AA',
+        'gray-500': '#71717A',
+        'gray-600': '#52525B',
+        'gray-700': '#3F3F46',
+        'gray-800': '#27272A',
+        'gray-900': '#18181B',
+      },
+      fontFamily: {
+        sans: ['Fira Sans', 'system-ui', 'sans-serif'],
+        mono: ['Fira Code', 'monospace'],
+      },
+    }
+  }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { transition: all 150ms ease; }
+  body { font-family: 'Fira Sans', system-ui, sans-serif; }
+  .sidebar { width: 240px; transition: width 200ms ease; }
+  .main-content { margin-left: 240px; transition: margin-left 200ms ease; }
+  .lead-row:hover { background: #F5F3FF; }
+  .tab-btn.active { color: #7C3AED; border-bottom: 2px solid #7C3AED; }
+  .status-badge { padding: 2px 10px; border-radius: 9999px; font-size: 12px; font-weight: 500; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #D4D4D8; border-radius: 3px; }
+  @media (max-width: 1024px) {
+    .sidebar { width: 64px; }
+    .sidebar .nav-text { display: none; }
+    .sidebar .logo-text { display: none; }
+    .main-content { margin-left: 64px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+
+<!-- Sidebar -->
+<aside class="sidebar fixed top-0 left-0 h-full bg-white border-r border-gray-200 z-40 flex flex-col">
+  <div class="h-16 flex items-center px-4 border-b border-gray-200">
+    <svg class="w-8 h-8 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="多处3" y="3" width="18" height="18" rx="去打4" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke-width="2"/><line x1="9" y1="21" x2="9" y2="9" stroke-width="2"/></svg>
+    <span class="logo-text ml-停3 font-bold text-primary text-lg">线索平台</span>
+  </div>
+  <nav class="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
+    <a href="#" class="flex items-center px-3 py-2.5 rounded-lg bg-primary/10 text-primary font-medium">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/></svg>
+      <span class="nav-text ml-3 text-sm">线索看板</span>
+    </a>
+    <a href="#" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/></svg>
+      <span class="nav-text ml-3 text-sm">线索搜索</span>
+    </a>
+    <a href="#" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      <span class="nav-text ml-3 text-sm">统计分析</span>
+    </a>
+    <a href="#" class="flex items-center px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 font-medium">
+      <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.1.724 2.573 1.066 2.573z"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+      <span class="nav-text ml-3 text-sm">系统设置</span>
+    </a>
+  </nav>
+  <div class="p-4 border-t border-gray-200">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-semibold">李</div>
+      <div class="nav-text">
+        <div class="text-sm font-medium">李明</div>
+        <div class="text-xs text-gray-500">运营编辑</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<main class="main-content min-h-screen">
+  <!-- Top Bar -->
+  <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-30">
+    <div class="flex items-center gap-3">
+      <h1 class="text-lg font-semibold text-gray-900">线索看板</h1>
+      <span class="px-2 py-0.5 text-xs font-medium bg-green-100 text-green-700 rounded-full">运行中</span>
+    </div>
+    <div class="flex items-center gap-iat">
+      <button class="relative p-2 text-gray-500 hover:text-primary rounded-lg hover:bg-gray-50">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
+      </button>
+      <button class="px-3 py-1.5 text-sm font-medium text-white bg-cta hover:bg-cta-hover rounded-lg focus:outline-none focus:ring-2 focus:ring-cta/50" onclick="toggleCollectModal()">
+        + 手动采集
+      </button>
+    </div>
+  </header>
+
+  <!-- Stats Cards -->
+  <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+      <div class="bg-white rounded-xl p-5 border border-gray-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-gray-500">总线索数</span>
+          <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-gray-900">1,286</div>
+        <div class="text-xs text-green-600 mt-1">↑ 12% 较上周</div>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-gray-500">今日新增</span>
+          <svg class="w-5 h-5 text-cta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke-width="2"/><line x1="5" y1="12" x2="19" y2="12" stroke-width="2"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-gray-900">23</div>
+        <div class="text-xs text-gray-400 mt-1">最后采集: 14:30</div>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-gray-500">待处理</span>
+          <svg class="w-5 h-5 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-gray-900">147</div>
+        <div class="text-xs text-warning mt-1">需及时处理</div>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-gray-500">已转化</span>
+          <svg class="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-gray-900">68</div>
+        <div class="text-xs text-green-600 mt-1">转化率 5.3%</div>
+      </div>
+      <div class="bg-white rounded-xl p-5 border border-gray-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-gray-500">采集任务</span>
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke-width="2"/></svg>
+        </div>
+        <div class="text-2xl font-bold text-gray-900">5</div>
+        <div class="text-xs text-gray-400 mt-1">3 运行中 / 2 已暂停</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative flex-1 min-w-[200px]">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"/></svg>
+          <input type="text" placeholder="搜索线索标题、内容或发布人..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary" oninput="filterLeads()">
+        </div>
+        <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:border-primary" onchange="filterLeads()">
+          <option value="">全部类型</option>
+          <option value="找资源">🔍 找资源</option>
+          <option value="咨询求助">❓ 咨询求助</option>
+          <option value="经验分享">💡 经验分享</option>
+          <option value="资源展示">📢 资源展示</option>
+        </select>
+        <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:border-primary" onchange="filterLeads()">
+          <option value="">全部状态</option>
+          <option value="新线索">新线索</option>
+          <option value="已查看">已查看</option>
+          <option value="已联系">已联系</option>
+          <option value="已转化">已转化</option>
+          <option value="无效">无效</option>
+        </select>
+        <input type="date" class="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:border-primary" onchange="filterLeads()">
+        <button class="px-iat py-2 text-sm text-gray-500 hover:text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50" onclick="resetFilters()">
+          <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          重置
+        </button>
+        <button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg" onclick="exportLeads()">
+          <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          导出 Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gray-50 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <th class="px-4 py-3 w-10"><input type="checkbox" class="rounded" onclick="toggleSelectAll()"></th>
+            <th class="px-4 py-3">帖子标题</th>
+            <th class="px-4 py-3 w-28">发布人</th>
+            <th class="px-4 py-3 w-24">线索类型</th>
+            <th class="px-4 py-3 w-36">采集时间</th>
+            <th class="px-4 py-3 w-24">状态</th>
+            <th class="px-4 py-3 w-24">操作</th>
+          </tr>
+        </thead>
+        <tbody id="leadsTableBody"></tbody>
+      </table>
+      <!-- Pagination -->
+      <div class="flex items-center justify-between px-4 py-3 border-t border-gray-200">
+        <span class="text-sm text-gray-500">共 1,286 条线索，第 1/65 页</span>
+        <div class="flex items-center gap-1">
+          <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-40" disabled>&lt; 上一页</button>
+          <button class="px-3 py-1.5 text-sm bg-primary text-white rounded-lg">1</button>
+          <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">2</button>
+          <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">3</button>
+          <span class="px-多处2 text-sm text-gray-500">...</span>
+          <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">65</button>
+          <button class="px-3 py-1.5 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">下一页 &gt;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Detail Drawer -->
+<div id="detailOverlay" class="fixed inset-0 bg-black/30 hidden z-50" onclick="closeDetail()"></div>
+<div id="detailDrawer" class="fixed top-0 right-0 h-full w-full max-w-2xl bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto">
+  <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+    <h牺3 class="text-lg font-semibold text-gray-900">线索详情</h3>
+    <button onclick="closeDetail()" class="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-50">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/><line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/></svg>
+    </button>
+  </div>
+  <div class="p-6 space-y-6" id="detailContent"></div>
+</div>
+
+<!-- Manual Collect Modal -->
+<div id="collectOverlay" class="fixed inset-0 bg-black/30 hidden z-50 flex items-center justify-center" onclick="toggleCollectModal()">
+  <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-xl" onclick="event.stopPropagation()">
+    <h3 class="text-lg font-semibold mb-4">手动采集</h3>
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">关键词/搜索词</label>
+        <input type="text" placeholder="输入要搜索的关键词" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-primary">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">采集数量</label>
+        <select class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white">
+          <option>20 条</option>
+          <option>50 条</option>
+          <option>100 条</option>
+        </select>
+      </div>
+      <div class="flex gap-3 justify-end pt-2">
+        <button onclick="toggleCollectModal()" class="px-4 py-2 text-sm border border-gray-200 rounded-lg hover:bg-gray-50">取消</button>
+        <button onclick="manualCollect()" class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg">开始采集</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="fixed top-4 right-4 z-[100] flex flex-col gap-2"></div>
+
+<script>
+// Mock data
+const leadsData = [
+  { id: 1, title: '求推荐靠谱的海外达人MCN机构，主要做东南亚市场的', author: '出海小能手', type: '找资源', time: '2026-07-21 14:22', status: '新线索', statusClass: 'bg-blue-50 text-blue-700', content: '我们品牌在做东南亚市场，想找靠谱的达人MCN合作，主要做TikTok和Instagram。求推荐靠谱机构，最好有服饰/美妆案例的，带案例来聊~', comments: [{ author: 'MCN老王', text: '我们覆盖东南亚6国1000+达人，服饰美妆都有案例，私聊发案例册' }, { author: '品牌小王', text: '同求！我们也需要东南亚美妆达人' }, { author: '海外营销Lisa', text: '推荐 xxxxx MCN，合作过效果不错' }, { author: '东南亚出海日记', text: '楼主可以看看我的笔记，分享了我们合作的几家MCN对比' }], confidence: 0.92, reason: '帖子明确表达了寻找海外达人MCN合作的需求，评论中有人提供资源推荐' },
+  { id: 2, title: '小白求问：海外品牌怎么做小红书营销？完全没头绪', author: '品牌新人小王', type: '咨询求助', time: '2026-07-21 13:10', status: '新线索', statusClass: 'bg-blue-50 text-blue-700', content: '刚接手公司海外品牌线，老板让做小红书海外营销，完全小白，求大佬们指点。主要卖家居用品，target欧美市场。不知道该从哪里开始，有没有系统的教程或者课程推荐？', comments: [{ author: '出海老司机', text: '先搞清楚你的目标用户画像，再选平台选达人' }, { author: '营销顾问Amy', text: '可以找我聊聊，免费咨询30分钟' }, { author: '家居出海人', text: '同行业！我们刚起步，可以交流' }], confidence: 0.89, reason: '新手主动询问海外品牌营销操作方法，评论中有潜在服务商' },
+  { id: 3, title: '复盘一下我们在 TikTok 投流的 ROI，3 个月从 0 到 2.5', author: 'Data_Driven出海', type: '经验分享', time: '2026-07-21 11:05', status: '已查看', statusClass: 'bg-yellow-50 text-yellow-700', content: '分享我们品牌3个月TikTok投流复盘。从0做到ROI 2.5，中间踩了不少坑。核心心得：1）素材本地化是关键 2）前期小预算测素材 3）一定要盯数据盯ROI...详细数据看图', comments: [{ author: '投流小能手', text: '感谢分享！请问测素材一般给多少预算？' }, { author: '出海广告优化师', text: 'ROI 2.5 很厉害了，求分享素材策略' }, { author: '品牌方老陈', text: '私聊一下？我们在找投流服务商' }], confidence: 0.85, reason: '高质量经验分享，评论中有品牌方在找服务商，具备潜在线索价值' },
+  { id: 4, title: '我们覆盖欧美200+时尚达人，欢迎品牌方来聊合作', author: 'GlobalMCN_Official', type: '资源展示', time: '2026-07-21 09:45', status: '已联系', statusClass: 'bg-green-50 text-green-700', content: 'Global MCN 覆盖欧美200+时尚/美妆/生活方式达人，合作品牌包括 xxx、xxx。提供全案营销服务：达人筛选、内容策略、投放优化、数据复盘。欢迎品牌方来聊~', comments: [{ author: '时尚品牌出海', text: '私信了，求发达人名单' }, { author: '品牌BD小刘', text: '我们做运动服饰的，有匹配达人吗？' }], confidence: 0.91, reason: 'MCN主动展示资源和案例，评论中有品牌方直接表达合作意向' },
+  { id: 5, title: '找海外 KOL 做开箱测评，预算 $500-2000/个，长期合作', author: '3C出海品牌', type: '找资源', time: '2026-07-20 18:30', status: '已转化', statusClass: 'bg-purple-50 text-purple-700', content: '我们3C配件品牌，想找海外科技类YouTuber/TikTok达人做开箱测评。预算 $500-2000/个，要求英语流利、有科技类内容经验。长期合作，感兴趣的达人/机构请私信！', comments: [{ author: 'TechCreator', text: '我有5万订阅科技频道，可以做开箱' }, { author: 'MCN海外科技', text: '我们有20+科技达人，报价合理，已私信' }], confidence: 0.94, reason: '明确的预算和合作需求，评论中有匹配的达人响应' },
+  { id: 6, title: '海外红人营销避坑指南：这5个坑千万别踩', author: '营销老炮Mike', type: '经验分享', time: '2026-07-20 15:20', status: '无效', statusClass: 'bg-gray-50 text-gray-500', content: '做了3年海外红人营销，总结5个血泪教训：1）不要只看粉丝量 2）一定要签合同明确交付标准 3）素材版权要提前谈好 4）付款方式分段 5）数据追踪要到位。具体踩坑经历写在下面...', comments: [{ author: '品牌新人', text: '太实用了！第三个坑我们正在踩' }, { author: '出海上路', text: '求拉群交流' }], confidence: 0.78, reason: '经验分享内容价值高，但评论中未发现直接线索意向' },
+  { id: 7, title: '急找东南亚本地KOL带货，需要有直播能力的', author: '东南亚美妆品牌', type: '找资源', time: '2026-07-20 11:00', status: '新线索', statusClass: 'bg-blue-50 text-blue-700', content: '急！我们美妆品牌在东南亚（印尼/泰国/越南）找本地KOL做直播带货。要求：有直播经验、美妆垂直领域、能说本地语言。佣金模式可谈，长期合作优先。', comments: [{ author: '印尼MCN_Rina', text: '我们印尼有50+美妆直播达人，发你名单' }, { author: '泰国达人经纪', text: '泰国本地达人，做过美妆直播，私你了' }, { author: '越南出海助手', text: '越南头部MCN，可一条龙服务' }], confidence: 0.96, reason: '明确紧急需求+预算意向，评论中有多个供应商响应' },
+  { id: 8, title: '分享我们品牌从0到1做海外私域的全流程', author: '跨境电商Jason', type: '经验分享', time: '2026-07-19 16:45', status: '已查看', statusClass: 'bg-yellow-50 text-yellow-700', content: '花了一年把海外私域从0做到10万用户，分享一下全流程：1）选WhatsApp还是LINE？2）引流方法 3）转化话术 4）复购策略。纯干货，希望能帮到大家~', comments: [{ author: '海外私域小白', text: '太棒了！请问引流用的什么工具？' }, { author: '出海品牌总监', text: '请教一下复购率怎么提升？' }], confidence: 0.72, reason: '高质量分享，但评论中没有直接商业线索' },
+];
+
+function renderLeads(filter = null) {
+  let data = leadsData;
+  if (filter) {
+    const typeFilter = document.querySelector('select:nth-of-type(1)').value;
+    const statusFilter = document.querySelector('select:nth-of-type(2)').value;
+    const searchText = document.querySelector('input[type="text"]').value.toLowerCase();
+    if (typeFilter) data = data.filter(l => l.type === typeFilter);
+    if (statusFilter) data = data.filter(l => l.status === statusFilter);
+    if (searchText) data = data.filter(l => l.title.toLowerCase().includes(searchText) || l.author.toLowerCase().includes(searchText));
+  }
+
+  const tbody = document.getElementById('leadsTableBody');
+  tbody.innerHTML = data.map(lead => `
+    <tr class="lead-row border-b border-gray-100 hover:bg-purple-50/30 cursor-pointer" onclick="openDetail(${lead.id})">
+      <td class="px-4 py-3" onclick="event.stopPropagation()"><input type="checkbox" class="rounded"></td>
+      <td class="px-4 py-3">
+        <div class="text-sm font-medium text-gray-900 line-clamp-1 max-w-[400px]">${lead.title}</div>
+      </td>
+      <td class="px-4 py-3 text-sm text-gray-600">${lead.author}</td>
+      <td class="px-4 py-3">
+        <span class="text-xs font-medium text-${lead.type === '找资源' ? 'orange' : lead.type === '咨询求助' ? 'blue' : lead.type === '经验分享' ? 'gray' : 'green'}-600">${lead.type}</span>
+      </td>
+      <td class="px-4 py-3 text-sm text-gray-500">${lead.time}</td>
+      <td class="px-4 py-3"><span class="status-badge ${lead.statusClass}">${lead.status}</span></td>
+      <td class="px-4 py-3" onclick="event.stopPropagation()">
+        <button class="px-3 py-1 text-xs font-medium text-primary border border-primary rounded-full hover:bg-primary hover:text-white transition-colors" onclick="quickChangeStatus(${lead.id})">标记</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filterLeads() { renderLeads(true); }
+
+function resetFilters() {
+  document.querySelector('input[type="text"]').value = '';
+  document.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+  document.querySelector('input[type="date"]').value = '';
+  renderLeads();
+}
+
+function toggleSelectAll() {
+  const boxes = document.querySelectorAll('#leadsTableBody input[type="checkbox"]');
+  const allChecked = Array.from(boxes).every(b => b.checked);
+  boxes.forEach(b => b.checked = !allChecked);
+}
+
+function openDetail(id) {
+  const lead = leadsData.find(l => l.id === id);
+  if (!lead) return;
+  const content = document.getElementById('detailContent');
+  content.innerHTML = `
+    <div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="px-2 py-0.5 text-xs font-medium rounded-full ${lead.statusClass}">${lead.status}</span>
+        <span class="text-xs text-gray-500">ID: #${String(lead.id).padStart(4,'0')}</span>
+      </div>
+      <h2 class="text-xl font-bold text-gray-900 mb-4">${lead.title}</h2>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-semibold">${lead.author[0]}</div>
+        <div>
+          <div class="text-sm font-medium text-gray-900">${lead.author}</div>
+          <div class="text-xs text-gray-500">${lead.time}</div>
+        </div>
+        <a href="#" class="ml-auto text-xs text-primary hover:underline">在小红书查看 →</a>
+      </div>
+      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line">${lead.content}</div>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-sm font-semibold text-gray-900 mb-iat flex items-center gap-2">
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        评论 (${lead.comments.length})
+      </h4>
+      <div class="space-y-3 mt-4">
+        ${lead.comments.map(c => `
+          <div class="flex gap-3">
+            <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium text-gray-600 flex-shrink-0">${c.author[0]}</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-gray-900">${c.author}</span>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">${c.text}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/10">
+      <div class="flex items-center gap-2 mb-2">
+        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <span class="text-sm font-semibold text-primary">AI 线索识别</span>
+        <span class="text-xs text-gray-500 ml-auto">置信度 ${(lead.confidence * 100).toFixed(0)}%</span>
+      </div>
+      <p class="text-sm text-gray-600">${lead.reason}</p>
+    </div>
+    <div class="mt-6 flex gap- рођено3">
+      <select class="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white flex-1">
+        <option ${lead.status === '新线索' ? 'selected' : ''}>新线索</option>
+        <option ${lead.status === '已查看' ? 'selected' : ''}>已查看</option>
+        <option ${lead.status === '已联系' ? 'selected' : ''}>已联系</option>
+        <option ${lead.status === '已转化' ? 'selected' : ''}>已转化</option>
+        <option ${lead.status === '无效' ? 'selected' : ''}>无效</option>
+      </select>
+      <button class="px-4 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg" onclick="showToast('状态已更新', 'success')">保存</button>
+    </div>
+    <div class="mt-6">
+      <h4 class="text-sm font-semibold text-gray-900 mb-3">跟进记录</h4>
+      <div class="space-y-3 mb-4">
+        <div class="text-sm text-gray-400 text-center py-4">暂无跟进记录</div>
+      </div>
+      <div class="flex gap-2">
+        <input type="text" placeholder="添加跟进备注..." class="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-primary">
+        <button class="px-4 py-2 text-sm font-medium text-white bg-cta hover:bg-cta-hover rounded-lg" onclick="showToast('跟进记录已保存', 'success')">添加</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('detailDrawer').classList.remove('translate-x-full');
+  document.getElementById('detailOverlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail() {
+  document.getElementById('detailDrawer').classList.add('translate-x-full');
+  document.getElementById('detailOverlay').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+function quickChangeStatus(id) {
+  const lead = leadsData.find(l => l.id === id);
+  const statuses = ['新线索', '已查看', '已联系', '已转化', '无效'];
+  const currentIdx = statuses.indexOf(lead.status);
+  const nextIdx = (currentIdx + 1) % statuses.length;
+  lead.status = statuses[nextIdx];
+  const statusClassMap = {
+    '新线索': 'bg-blue-50 text-blue-700',
+    '已查看': 'bg-yellow-50 text-yellow-700',
+    '已联系': 'bg-green-50 text-green-700',
+    '已转化': 'bg-purple-50 text-purple-700',
+    '无效': 'bg-gray-50 text-gray-500',
+  };
+  lead.statusClass = statusClassMap[lead.status];
+  renderLeads();
+  showToast(`已标记为「${lead.status}」`, 'success');
+}
+
+function toggleCollectModal() {
+  const overlay = document.getElementById('collectOverlay');
+  overlay.classList.toggle('hidden');
+}
+
+function manualCollect() {
+  toggleCollectModal();
+  showToast('采集任务已下发，预计3-5分钟完成', 'success');
+}
+
+function exportLeads() {
+  showToast('正在生成 Excel 文件，请稍候...', 'success');
+}
+
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `px-5 py-3 rounded-lg text-white text-sm font-medium shadow-lg transition-all duration-300 translate-x-full ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.remove('translate-x-full'));
+  setTimeout(() => {
+    toast.classList.add('translate-x-full');
+    setTimeout(() => toast.remove(), 300);
+  }, 2500);
+}
+
+// Init
+renderLeads();
+</script>
+</body>
+</html>
