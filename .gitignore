@@ -32,3 +32,4 @@ build/
 *.log
 logs/
 node_modules/
+backend/data.db
